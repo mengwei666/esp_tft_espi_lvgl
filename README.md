@@ -22,3 +22,4 @@
 ## 添加lvgl到工程的lib.
 > 将lvgl/lv_conf_template.h复制到lvgl目录旁边，并将其重命名为lv_conf.h。打开文件并将开头的更改为以启用其内容。#if 0#if 1
 > 新建lv_port_disp.cpp和lv_port_disp.h文件 新建测试文件修改mian.cpp文件如下图所示
+![2021-12-16 14-18-39 的屏幕截图](https://user-images.githubusercontent.com/58246560/146319063-976f5cc4-38f6-4c17-bf6d-a14bbfddd400.png)
