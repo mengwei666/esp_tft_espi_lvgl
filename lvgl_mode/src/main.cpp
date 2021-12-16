@@ -8,6 +8,9 @@
  */
 #include <Arduino.h>
 #include "TFT_eSPI.h"
+#include "lvgl.h"
+#include "lv_port_disp.h"
+#include "lv_examples.h"
 typedef TFT_eSPI SCREEN_CLASS;
 
 #define CONFIG_SCREEN_BLK_PIN       12
@@ -22,12 +25,16 @@ void setup() {
   /* 屏幕初始化 */
   screen.begin();
   screen.setRotation(0);   
-  screen.fillScreen(TFT_WHITE);  
-  screen.drawRoundRect(30, 30, 200, 200,20, TFT_RED);
+  screen.fillScreen(TFT_BLACK);  
+
+  /* lvgl初始化 */
+  lv_init();
+  lv_port_disp_init(&screen);
+
+  lv_example_img_2();
 
 }
 
 void loop() {
- 
-
+ 	lv_task_handler();
 }
