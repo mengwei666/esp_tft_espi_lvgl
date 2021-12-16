@@ -5,5 +5,8 @@
 void lv_example_img_1(void);
 void lv_example_img_2(void);
 void lv_example_img_3(void);
+void lv_example_img_4(void);
+void lv_example_img_5(void);
+void lv_example_img_6(void);
 
 #endif 

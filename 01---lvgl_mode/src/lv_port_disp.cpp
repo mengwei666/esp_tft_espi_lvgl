@@ -1,24 +1,15 @@
 #include "lv_port_disp.h"
-
-
 //static lv_color_t lv_full_disp_buf[DISP_BUF_SIZE];
 lv_color_t* lv_disp_buf_p;
 
 static lv_disp_draw_buf_t disp_buf;
 static lv_disp_drv_t disp_drv;
-
-void my_print(lv_log_level_t level, const char* file, uint32_t line, const char* fun, const char* dsc)
-{
-    Serial.printf("%s@%d %s->%s\r\n", file, line, fun, dsc);
-    Serial.flush();
-}
-
 /**
-  * @brief  ��Ļˢ�»ص�����
-  * @param  disp:��Ļ������ַ
-  * @param  area:ˢ������
-  * @param  color_p:ˢ�»�������ַ
-  * @retval ��
+  * @brief  屏幕刷新回调函数
+  * @param  disp:屏幕驱动地址
+  * @param  area:刷新区域
+  * @param  color_p:刷新缓冲区地址
+  * @retval 无
   */
 static void disp_flush_cb(lv_disp_drv_t* disp, const lv_area_t* area, lv_color_t* color_p)
 {
@@ -37,21 +28,15 @@ static void disp_flush_cb(lv_disp_drv_t* disp, const lv_area_t* area, lv_color_t
 
 static void disp_wait_cb(lv_disp_drv_t* disp_drv)
 {
-//    __wfi();
 }
 
 /**
-  * @brief  ��Ļ��ʼ��
-  * @param  ��
-  * @retval ��
+  * @brief  屏幕初始化
+  * @param  无
+  * @retval 无
   */
 void lv_port_disp_init(SCREEN_CLASS* scr)
 {
-    // lv_log_register_print_cb(
-    //     reinterpret_cast<lv_log_print_g_cb_t>(my_print)); /* register print function for debugging */
-
-    /* Move the malloc process to Init() to make sure that the largest heap can be used for this buffer. */
-
     lv_disp_buf_p = static_cast<lv_color_t*>(malloc((240 * 240 /2) * sizeof(lv_color_t)));
     if (lv_disp_buf_p == nullptr)
         LV_LOG_WARN("lv_port_disp_init malloc failed!\n");

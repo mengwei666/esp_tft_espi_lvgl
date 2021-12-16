@@ -11,18 +11,18 @@
 #include "lvgl.h"
 #include "lv_port_disp.h"
 #include "lv_examples.h"
-typedef TFT_eSPI SCREEN_CLASS;
 
+typedef TFT_eSPI SCREEN_CLASS;
 #define CONFIG_SCREEN_BLK_PIN       12
 
 void setup() {
 
+  /* 屏幕背光打开设置 */
   pinMode(CONFIG_SCREEN_BLK_PIN, OUTPUT);
   digitalWrite(CONFIG_SCREEN_BLK_PIN, HIGH);
 
-  static SCREEN_CLASS screen;
-
   /* 屏幕初始化 */
+  static SCREEN_CLASS screen;
   screen.begin();
   screen.setRotation(0);   
   screen.fillScreen(TFT_BLACK);  
@@ -30,9 +30,7 @@ void setup() {
   /* lvgl初始化 */
   lv_init();
   lv_port_disp_init(&screen);
-
-  lv_example_img_2();
-
+  lv_example_img_6();
 }
 
 void loop() {
