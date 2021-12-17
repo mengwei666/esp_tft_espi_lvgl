@@ -17,6 +17,11 @@ typedef TFT_eSPI SCREEN_CLASS;
 
 void setup() {
 
+
+  Serial.begin(115200);
+  Serial.println("Begin");
+
+
   /* 屏幕背光打开设置 */
   pinMode(CONFIG_SCREEN_BLK_PIN, OUTPUT);
   digitalWrite(CONFIG_SCREEN_BLK_PIN, HIGH);
@@ -30,9 +35,10 @@ void setup() {
   /* lvgl初始化 */
   lv_init();
   lv_port_disp_init(&screen);
-  lv_example_img_6();
+  lv_example_img_8();
 }
 
 void loop() {
+  lv_tick_inc(5); 
  	lv_task_handler();
 }
