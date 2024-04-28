@@ -1,7 +1,6 @@
 #include "../lv_examples.h"
 #if LV_BUILD_EXAMPLES && LV_USE_IMG
 
-
 static lv_style_t style_btn;
 
 /*Will be called when the styles of the base theme are already added
@@ -32,11 +31,9 @@ static void new_theme_init_and_set(void)
     lv_theme_set_parent(&th_new, th_act);
     lv_theme_set_apply_cb(&th_new, new_theme_apply_cb);
 
-    /*Assign the new theme the the current display*/
+    /*Assign the new theme to the current display*/
     lv_disp_set_theme(NULL, &th_new);
 }
-
-
 
 /**
  * Extending the current theme

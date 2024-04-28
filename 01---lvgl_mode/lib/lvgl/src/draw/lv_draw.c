@@ -29,8 +29,6 @@
  *  STATIC VARIABLES
  **********************/
 
-static lv_draw_backend_t * backend_head;
-
 /**********************
  *      MACROS
  **********************/
@@ -41,26 +39,15 @@ static lv_draw_backend_t * backend_head;
 
 void lv_draw_init(void)
 {
-    backend_head = NULL;
-    lv_draw_sw_init();
+    /*Nothing to init now*/
 }
 
-void lv_draw_backend_init(lv_draw_backend_t * backend)
+void lv_draw_wait_for_finish(lv_draw_ctx_t * draw_ctx)
 {
-    lv_memset_00(backend, sizeof(lv_draw_backend_t));
-}
-
-void lv_draw_backend_add(lv_draw_backend_t * backend)
-{
-    backend->base = backend_head;
-    backend_head = backend;
-}
-
-const lv_draw_backend_t * lv_draw_backend_get(void)
-{
-    return backend_head;
+    if(draw_ctx->wait_for_finish) draw_ctx->wait_for_finish(draw_ctx);
 }
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
+

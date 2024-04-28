@@ -9,6 +9,8 @@
 #include "lv_rlottie.h"
 #if LV_USE_RLOTTIE
 
+#include <rlottie_capi.h>
+
 /*********************
 *      DEFINES
 *********************/
@@ -148,7 +150,6 @@ static void lv_rlottie_constructor(const lv_obj_class_t * class_p, lv_obj_t * ob
     lv_obj_update_layout(obj);
 }
 
-
 static void lv_rlottie_destructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
 {
     LV_UNUSED(class_p);
@@ -170,6 +171,7 @@ static void lv_rlottie_destructor(const lv_obj_class_t * class_p, lv_obj_t * obj
         rlottie->dest_frame = 0;
     }
 
+    lv_img_cache_invalidate_src(&rlottie->imgdsc);
     if(rlottie->allocated_buf) {
         lv_mem_free(rlottie->allocated_buf);
         rlottie->allocated_buf = NULL;
@@ -208,7 +210,7 @@ static void convert_to_rgba5658(uint32_t * pix, const size_t width, const size_t
             uint16_t r = (uint16_t)(((in & 0xF80000) >> 8) | ((in & 0xFC00) >> 5) | ((in & 0xFF) >> 3));
 #else
             /* We want: rrrr rrrr GGGg gggg bbbb bbbb => gggb bbbb rrrr rGGG */
-            uint16_t r = (uint16_t)(((c & 0xF80000) >> 16) | ((c & 0xFC00) >> 13) | ((c & 0x1C00) << 3) | ((c & 0xF8) << 5));
+            uint16_t r = (uint16_t)(((in & 0xF80000) >> 16) | ((in & 0xFC00) >> 13) | ((in & 0x1C00) << 3) | ((in & 0xF8) << 5));
 #endif
 
             lv_memcpy(dest, &r, sizeof(r));

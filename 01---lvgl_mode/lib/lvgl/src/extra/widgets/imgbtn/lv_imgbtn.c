@@ -112,7 +112,6 @@ void lv_imgbtn_set_state(lv_obj_t * obj, lv_imgbtn_state_t state)
  * Getter functions
  *====================*/
 
-
 /**
  * Get the left image in a given state
  * @param obj pointer to an image button object
@@ -156,7 +155,6 @@ const void * lv_imgbtn_get_src_right(lv_obj_t * obj, lv_imgbtn_state_t state)
     return imgbtn->img_src_right[state];
 }
 
-
 /**********************
  *   STATIC FUNCTIONS
  **********************/
@@ -172,7 +170,6 @@ static void lv_imgbtn_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj
 
     imgbtn->act_cf = LV_IMG_CF_UNKNOWN;
 }
-
 
 static void lv_imgbtn_event(const lv_obj_class_t * class_p, lv_event_t * e)
 {
@@ -205,13 +202,22 @@ static void lv_imgbtn_event(const lv_obj_class_t * class_p, lv_event_t * e)
             p->x = LV_MAX(p->x, header.w);
         }
     }
+    /*Sent when the widget is checked due to LV_OBJ_FLAG_CHECKABLE */
+    else if(code == LV_EVENT_VALUE_CHANGED) {
+        if(lv_obj_has_state(obj, LV_STATE_CHECKED)) {
+            lv_imgbtn_set_state(obj, LV_IMGBTN_STATE_CHECKED_RELEASED);
+        }
+        else {
+            lv_imgbtn_set_state(obj, LV_IMGBTN_STATE_RELEASED);
+        }
+    }
 }
 
 static void draw_main(lv_event_t * e)
 {
     lv_obj_t * obj = lv_event_get_target(e);
     lv_imgbtn_t * imgbtn = (lv_imgbtn_t *)obj;
-    const lv_area_t * clip_area = lv_event_get_param(e);
+    lv_draw_ctx_t * draw_ctx = lv_event_get_draw_ctx(e);
 
     /*Just draw_main an image*/
     lv_imgbtn_state_t state  = suggest_state(obj, get_state(obj));
@@ -244,7 +250,7 @@ static void draw_main(lv_event_t * e)
         coords_part.y1 = coords.y1;
         coords_part.x2 = coords.x1 + header.w - 1;
         coords_part.y2 = coords.y1 + header.h - 1;
-        lv_draw_img(&coords_part, clip_area, src, &img_dsc);
+        lv_draw_img(draw_ctx, &img_dsc, &coords_part, src);
     }
 
     src = imgbtn->img_src_right[state];
@@ -255,33 +261,37 @@ static void draw_main(lv_event_t * e)
         coords_part.y1 = coords.y1;
         coords_part.x2 = coords.x2;
         coords_part.y2 = coords.y1 + header.h - 1;
-        lv_draw_img(&coords_part, clip_area, src, &img_dsc);
+        lv_draw_img(draw_ctx, &img_dsc, &coords_part, src);
     }
 
     src = imgbtn->img_src_mid[state];
     if(src) {
-        lv_area_t clip_center_area;
-        clip_center_area.x1 = coords.x1 + left_w;
-        clip_center_area.x2 = coords.x2 - right_w;
-        clip_center_area.y1 = coords.y1;
-        clip_center_area.y2 = coords.y2;
+        lv_area_t clip_area_center;
+        clip_area_center.x1 = coords.x1 + left_w;
+        clip_area_center.x2 = coords.x2 - right_w;
+        clip_area_center.y1 = coords.y1;
+        clip_area_center.y2 = coords.y2;
 
         bool comm_res;
-        comm_res = _lv_area_intersect(&clip_center_area, &clip_center_area, clip_area);
+        comm_res = _lv_area_intersect(&clip_area_center, &clip_area_center, draw_ctx->clip_area);
         if(comm_res) {
             lv_coord_t i;
             lv_img_decoder_get_info(src, &header);
+
+            const lv_area_t * clip_area_ori = draw_ctx->clip_area;
+            draw_ctx->clip_area = &clip_area_center;
 
             coords_part.x1 = coords.x1 + left_w;
             coords_part.y1 = coords.y1;
             coords_part.x2 = coords_part.x1 + header.w - 1;
             coords_part.y2 = coords_part.y1 + header.h - 1;
 
-            for(i = coords_part.x1; i < (lv_coord_t)(clip_center_area.x2 + header.w - 1); i += header.w) {
-                lv_draw_img(&coords_part, &clip_center_area, src, &img_dsc);
+            for(i = coords_part.x1; i < (lv_coord_t)(clip_area_center.x2 + header.w - 1); i += header.w) {
+                lv_draw_img(draw_ctx, &img_dsc, &coords_part, src);
                 coords_part.x1 = coords_part.x2 + 1;
                 coords_part.x2 += header.w;
             }
+            draw_ctx->clip_area = clip_area_ori;
         }
     }
 }

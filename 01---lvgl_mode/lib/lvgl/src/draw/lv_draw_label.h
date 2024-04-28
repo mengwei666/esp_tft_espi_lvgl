@@ -63,11 +63,12 @@ typedef struct _lv_draw_label_hint_t {
     int32_t coord_y;
 } lv_draw_label_hint_t;
 
+struct _lv_draw_ctx_t;
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
 
-LV_ATTRIBUTE_FAST_MEM void lv_draw_label_dsc_init(lv_draw_label_dsc_t * dsc);
+void /* LV_ATTRIBUTE_FAST_MEM */ lv_draw_label_dsc_init(lv_draw_label_dsc_t * dsc);
 
 /**
  * Write a text
@@ -78,14 +79,12 @@ LV_ATTRIBUTE_FAST_MEM void lv_draw_label_dsc_init(lv_draw_label_dsc_t * dsc);
  * @param hint pointer to a `lv_draw_label_hint_t` variable.
  * It is managed by the draw to speed up the drawing of very long texts (thousands of lines).
  */
-LV_ATTRIBUTE_FAST_MEM void lv_draw_label(const lv_area_t * coords, const lv_area_t * mask,
-                                         const lv_draw_label_dsc_t * dsc,
-                                         const char * txt, lv_draw_label_hint_t * hint);
+void /* LV_ATTRIBUTE_FAST_MEM */ lv_draw_label(struct _lv_draw_ctx_t * draw_ctx, const lv_draw_label_dsc_t * dsc,
+                                               const lv_area_t * coords, const char * txt, lv_draw_label_hint_t * hint);
 
-void lv_draw_letter(const lv_point_t * pos_p, const lv_area_t * clip_area,
-                    const lv_font_t * font_p,
-                    uint32_t letter,
-                    lv_color_t color, lv_opa_t opa, lv_blend_mode_t blend_mode);
+void lv_draw_letter(struct _lv_draw_ctx_t * draw_ctx, const lv_draw_label_dsc_t * dsc,  const lv_point_t * pos_p,
+                    uint32_t letter);
+
 /***********************
  * GLOBAL VARIABLES
  ***********************/

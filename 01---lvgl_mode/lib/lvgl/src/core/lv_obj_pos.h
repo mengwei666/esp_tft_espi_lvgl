@@ -35,7 +35,7 @@ typedef struct {
  **********************/
 
 /**
- * Set the the position of an object relative to the set alignment.
+ * Set the position of an object relative to the set alignment.
  * @param obj       pointer to an object
  * @param x         new x coordinate
  * @param y         new y coordinate
@@ -47,7 +47,7 @@ typedef struct {
 void lv_obj_set_pos(struct _lv_obj_t * obj, lv_coord_t x, lv_coord_t y);
 
 /**
- * Set the x coordinate of a object
+ * Set the x coordinate of an object
  * @param obj       pointer to an object
  * @param x         new x coordinate
  * @note            With default alignment it's the distance from the top left corner
@@ -58,7 +58,7 @@ void lv_obj_set_pos(struct _lv_obj_t * obj, lv_coord_t x, lv_coord_t y);
 void lv_obj_set_x(struct _lv_obj_t * obj, lv_coord_t x);
 
 /**
- * Set the y coordinate of a object
+ * Set the y coordinate of an object
  * @param obj       pointer to an object
  * @param y         new y coordinate
  * @note            With default alignment it's the distance from the top left corner
@@ -153,7 +153,7 @@ void lv_obj_mark_layout_as_dirty(struct _lv_obj_t * obj);
 void lv_obj_update_layout(const struct _lv_obj_t * obj);
 
 /**
- * Regsiter a new layout
+ * Register a new layout
  * @param cb        the layout update callback
  * @param user_data custom data that will be passed to `cb`
  * @return          the ID of the new layout
@@ -200,7 +200,6 @@ static inline void lv_obj_center(struct _lv_obj_t * obj)
 {
     lv_obj_align(obj, LV_ALIGN_CENTER, 0, 0);
 }
-
 
 /**
  * Copy the coordinates of an object to an area
@@ -345,8 +344,25 @@ void lv_obj_refr_pos(struct _lv_obj_t * obj);
 
 void lv_obj_move_to(struct _lv_obj_t * obj, lv_coord_t x, lv_coord_t y);
 
-
 void lv_obj_move_children_by(struct _lv_obj_t * obj, lv_coord_t x_diff, lv_coord_t y_diff, bool ignore_floating);
+
+/**
+ * Transform a point using the angle and zoom style properties of an object
+ * @param obj           pointer to an object whose style properties should be used
+ * @param p             a point to transform, the result will be written back here too
+ * @param recursive     consider the transformation properties of the parents too
+ * @param inv           do the inverse of the transformation (-angle and 1/zoom)
+ */
+void lv_obj_transform_point(const struct _lv_obj_t * obj, lv_point_t * p, bool recursive, bool inv);
+
+/**
+ * Transform an area using the angle and zoom style properties of an object
+ * @param obj           pointer to an object whose style properties should be used
+ * @param area          an area to transform, the result will be written back here too
+ * @param recursive     consider the transformation properties of the parents too
+ * @param inv           do the inverse of the transformation (-angle and 1/zoom)
+ */
+void lv_obj_get_transformed_area(const struct _lv_obj_t * obj, lv_area_t * area, bool recursive, bool inv);
 
 /**
  * Mark an area of an object as invalid.

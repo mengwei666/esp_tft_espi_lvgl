@@ -1,5 +1,6 @@
 #include "../../lv_examples.h"
-#if LV_USE_FREETYPE && LV_BUILD_EXAMPLES
+#if LV_BUILD_EXAMPLES
+#if LV_USE_FREETYPE
 
 /**
  * Load a font with FreeType
@@ -9,7 +10,7 @@ void lv_example_freetype_1(void)
     /*Create a font*/
     static lv_ft_info_t info;
     /*FreeType uses C standard file system, so no driver letter is required.*/
-    info.name = "./lvgl/examples/libs/freetype/arial.ttf";
+    info.name = "./lvgl/examples/libs/freetype/Lato-Regular.ttf";
     info.weight = 24;
     info.style = FT_FONT_STYLE_NORMAL;
     info.mem = NULL;
@@ -41,4 +42,5 @@ void lv_example_freetype_1(void)
     lv_obj_center(label);
 }
 
+#endif
 #endif

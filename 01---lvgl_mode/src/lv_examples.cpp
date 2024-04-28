@@ -73,7 +73,7 @@ void lv_example_img_8(void)
 {
     lv_obj_t * animimg1 = lv_animimg_create(lv_scr_act());
     lv_obj_center(animimg1);
-    lv_animimg_set_src(animimg1, (lv_img_dsc_t**) anim_imgs, 3);
+    // lv_animimg_set_src(animimg1, (lv_img_dsc_t**) anim_imgs, 3);
     lv_animimg_set_duration(animimg1, 1000);
     lv_animimg_set_repeat_count(animimg1, LV_ANIM_REPEAT_INFINITE);
     lv_animimg_start(animimg1);

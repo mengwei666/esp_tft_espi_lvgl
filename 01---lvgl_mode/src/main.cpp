@@ -12,8 +12,13 @@
 #include "lv_port_disp.h"
 #include "lv_examples.h"
 
+#include "custom/gui_guider.h"
+#include "custom/custom.h"
+
 typedef TFT_eSPI SCREEN_CLASS;
 #define CONFIG_SCREEN_BLK_PIN       12
+
+lv_ui guider_ui;
 
 void setup() {
 
@@ -32,10 +37,19 @@ void setup() {
   screen.setRotation(0);   
   screen.fillScreen(TFT_BLACK);  
 
+
+
   /* lvgl初始化 */
   lv_init();
   lv_port_disp_init(&screen);
-  lv_example_img_8();
+  // lv_example_img_7();
+  // setup_ui(&guider_ui);
+
+  setup_ui(&guider_ui);
+  // events_init(&guider_ui);
+
+
+
 }
 
 void loop() {
