@@ -29,12 +29,12 @@ void setup_scr_screen(lv_ui *ui)
 	//Write codes screen_btn_1
 	ui->screen_btn_1 = lv_btn_create(ui->screen);
 	ui->screen_btn_1_label = lv_label_create(ui->screen_btn_1);
-	lv_label_set_text(ui->screen_btn_1_label, "Button");
+	lv_label_set_text(ui->screen_btn_1_label, "start1");
 	lv_label_set_long_mode(ui->screen_btn_1_label, LV_LABEL_LONG_WRAP);
 	lv_obj_align(ui->screen_btn_1_label, LV_ALIGN_CENTER, 0, 0);
 	lv_obj_set_style_pad_all(ui->screen_btn_1, 0, LV_STATE_DEFAULT);
 	lv_obj_set_width(ui->screen_btn_1_label, LV_PCT(100));
-	lv_obj_set_pos(ui->screen_btn_1, 70, 95);
+	lv_obj_set_pos(ui->screen_btn_1, 6, 184);
 	lv_obj_set_size(ui->screen_btn_1, 100, 50);
 
 	//Write style for screen_btn_1, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
@@ -50,12 +50,17 @@ void setup_scr_screen(lv_ui *ui)
 	lv_obj_set_style_text_align(ui->screen_btn_1, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN|LV_STATE_DEFAULT);
 
 	//The custom code of screen.
-	extern lv_indev_t * indev_encoder;
-	lv_group_t *group=lv_group_create();
-    lv_indev_set_group(indev_encoder, group);	//将组绑定到输入设备
- 
-    lv_group_set_editing(group, false);   //导航模式
-	lv_group_add_obj(group ,ui->screen_btn_1);
+	extern lv_indev_t *indev_encoder;
+
+	lv_group_t*group=lv_group_create();
+
+	lv_indev_set_group(indev_encoder,group);   //将组绑定到输入设备
+
+	lv_group_set_editing(group,false);   //导航模式
+
+	lv_group_add_obj(group,ui->screen_btn_1);
+
+
 
 	//Update current screen layout.
 	lv_obj_update_layout(ui->screen);
