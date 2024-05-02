@@ -170,6 +170,8 @@ void lv_port_indev_init(void)
     //     {40, 100},  /*Button 1 -> x:40; y:100*/
     // };
     // lv_indev_set_button_points(indev_button, btn_points);
+
+
 }
 
 /**********************

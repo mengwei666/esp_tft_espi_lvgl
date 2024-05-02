@@ -35,7 +35,6 @@
   * 显示动态图片（太空人）
 * todo
 
-
 //The custom code of screen.
 
 externlv_indev_t*indev_encoder;

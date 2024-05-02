@@ -142,13 +142,15 @@ void ui_img_rotate_animation(void * var, int32_t duration, int32_t delay, lv_coo
 void init_scr_del_flag(lv_ui *ui)
 {
   
-	ui->screen_del = true;
 	ui->screen_1_del = true;
+	ui->screen_2_del = true;
+	ui->screen_3_del = true;
+	ui->screen_4_del = true;
 }
 
 void setup_ui(lv_ui *ui)
 {
 	init_scr_del_flag(ui);
-	setup_scr_screen_1(ui);
-	lv_scr_load(ui->screen_1);
+	setup_scr_screen_4(ui);
+	lv_scr_load(ui->screen_4);
 }

@@ -1,1 +1,1 @@
-GEN_CSRCS += 
+GEN_CSRCS += _ni1_alpha_240x240.c _ni2_alpha_240x240.c _ni3_alpha_240x240.c _ni4_alpha_240x240.c
